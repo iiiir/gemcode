@@ -1,0 +1,38 @@
+#%Module1.0#
+###
+### modules modulefile
+###
+
+proc ModulesHelp { } {
+        global version compiler
+        puts stderr "\tInitializes your environment to use the gemcode scripts\n"
+}
+
+
+set app_dir /home/swang/app
+set data_dir /home/swang/data
+set gem_home $app_dir/gemcode
+setenv GEM_HOME $gem_home
+prepend-path PATH $gem_home/bin
+prepend-path PATH $gem_home/utils
+setenv JAVATMP /scratch_space/swang/JAVA
+
+# Setting paths and env for the Simple Job Manager (SJM)
+prepend-path PATH $app_dir/SJM/bin
+
+# Setting paths for R/java/python
+prepend-path PATH /hpcf/apps/R/install/3.1.1/bin
+prepend-path PATH /hpcf/apps/java/jdk1.7.0_05/bin
+prepend-path PATH /hpcf/apps/python/install/2.7.2/bin
+prepend-path LD_LIBRARY_PATH /hpcf/apps/python/install/2.7.2/lib
+prepend-path PYTHONPATH $gem_home/pythonlib
+
+# setting paths for bioinformatics tools
+setenv PICARDPATH /hpcf/apps/picard/install/1.129
+prepend-path PATH /hpcf/apps/samtools/vendor/1.2
+prepend-path PATH /hpcf/apps/bwa/vendor/0.7.12
+prepend-path PATH /hpcf/apps/htslib/install/1.2.1/bin
+
+# build set up to b37 by default
+setenv ref_genome ${data_dir}/ref_genome/GRCh37-lite.fa
+setenv ref_build b37
