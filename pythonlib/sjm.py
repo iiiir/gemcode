@@ -88,3 +88,10 @@ class Job:
         if self.log_dir is not None:
             s+='log_dir %s\n'%self.log_dir
         return s
+
+def markdone(jobs, mark=True):
+    if mark:
+        for job in jobs:
+            if len(job.dependents)>0:
+                markdone(job.dependents, mark)
+            job.status='done'

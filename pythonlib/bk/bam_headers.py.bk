@@ -1,0 +1,19 @@
+
+def ubam_header():
+    header = { 'HD': {'VN': '1.0',
+                      'SO':'queryname'},
+               'RG': [{'ID': 'Test',
+                       'SM': 'Test',
+                       'LB': 'Sample',
+                       'PL': 'Chromium'}] }
+    return header
+
+def unsort_header():
+    header = { 'HD': {'VN': '1.0',
+                      'SO':'unsorted'},
+               'RG': [{'ID': 'Test',
+                       'SM': 'Test',
+                       'LB': 'Sample',
+                       'PL': 'Chromium'}] }
+    return header
+

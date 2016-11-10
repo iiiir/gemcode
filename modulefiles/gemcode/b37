@@ -18,10 +18,10 @@ prepend-path PATH $gem_home/utils
 setenv JAVATMP /scratch_space/swang/JAVA
 
 # Setting paths and env for the Simple Job Manager (SJM)
-prepend-path PATH $app_dir/SJM/bin
+prepend-path PATH /hpcf/apps/sjm/install/1.2.0-hpcf/bin
 
 # Setting paths for R/java/python
-prepend-path PATH /hpcf/apps/R/install/3.1.1/bin
+prepend-path PATH /hpcf/apps/R/install/3.1.3/bin
 prepend-path PATH /hpcf/apps/java/jdk1.7.0_05/bin
 prepend-path PATH /hpcf/apps/python/install/2.7.2/bin
 prepend-path LD_LIBRARY_PATH /hpcf/apps/python/install/2.7.2/lib
@@ -34,5 +34,6 @@ prepend-path PATH /hpcf/apps/bwa/vendor/0.7.12
 prepend-path PATH /hpcf/apps/htslib/install/1.2.1/bin
 
 # build set up to b37 by default
-setenv ref_genome ${data_dir}/ref_genome/GRCh37-lite.fa
+setenv ref_genome ${data_dir}/reference/GRCh37-lite.fa
+setenv ref_chr_ctg ${data_dir}/reference/GRCh37-lite.chr.ctg.txt
 setenv ref_build b37
