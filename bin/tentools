@@ -1,0 +1,29 @@
+#!/bin/env python
+import sys
+import pysam
+import bam_util
+import tenkit
+import argparse
+import re
+
+p = argparse.ArgumentParser('bam_slice.py -b in.bam [opt]')
+p.add_argument('-b','--bamfile', help=' one bam')
+p.add_argument('--get_barcode', help='returns barcode')
+p.add_argument('--compare_two_bams', help='genomics position of first breakpoint')
+p.add_argument('--check_barcodes', help='genomics position of saved in a file, one record per line')
+args = p.parse_args()
+
+if args.compare_two_bams:
+    bam_util.comapre_bams(fn1,fn2)
+
+if args.check_barcodes:
+    bam_util.check_barcodes(fn1)
+
+if args.get_barcode:
+    chrom, posA, posB = re.split("[:-]", args.get_barcode)
+    posA, posB = int(posA), int(posB)
+    SAMfile = pysam.AlignmentFile(args.bamfile)
+    sam = SAMfile.fetch(chrom, posA, posB)
+    barcodes_n_reads = tenkit.get_bcs_from_align(sam)
+    barcodes = [k.split('-')[0] for k in barcodes_n_reads.keys()]
+    print '\n'.join(sorted(barcodes))

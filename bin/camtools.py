@@ -37,7 +37,7 @@ def cam_to_bam(sam_line):
 if __name__ == "__main__":
     if args.barcodelist:
         # be aware that multipel iterator might cause overhead
-        samfile = pysam.AlignmentFile(fn, multiple_iterators=true)
+        samfile = pysam.AlignmentFile(fn, multiple_iterators=True)
         outhead = clean_header( samfile.header )
         outsam  = pysam.AlignmentFile('-', 'wb', header=outhead)
         for l in open(bc):

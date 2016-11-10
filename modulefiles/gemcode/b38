@@ -40,6 +40,7 @@ setenv PICARDPATH /hpcf/apps/picard/install/2.0.1
 prepend-path PATH /hpcf/apps/samtools/vendor/1.2
 prepend-path PATH /hpcf/apps/bwa/vendor/0.7.12
 prepend-path PATH /hpcf/apps/htslib/install/1.2.1/bin
+prepend-path PATH /hpcf/apps/bedtools/install/2.25.0/bin
 
 # build set up to b37 by default
 setenv ref_genome /nfs_exports/genomes/1/Homo_sapiens/GRCh38/GRCh38_no_alt/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna

@@ -84,30 +84,6 @@ def barcode_to_bed(barcodefile):
     fout.close()
     return outfile
 
-# this function should deprecate
-def cigar_to_clip(cigar):
-    '''
-    M:0|C:1|D:2|S:4
-    cigar -> tuple (left_SC, match, right_SC)
-    cigar_to_length( [(0, 64), (4, 26)] )
-    >>> (0, 64, 26)
-    cigar_to_length( [(1, 64), (2, 123), (0, 10), (4, 26)] )
-    >>> (187, 10, 26)
-    '''
-    i = next( (i for i,t in enumerate(cigar) if t[0] == 0) )
-    # find left cut
-    if i == 0:
-        left_cut = 0
-    else:
-        left_cut = sum( l for k,l in cigar[0:i] )
-    # find right cut
-    if i+1 == len(cigar):
-        right_cut = 0
-    else:
-        right_cut = sum( l for k,l in cigar[i+1:] )
-    middle_piece = sum(l for k,l in cigar) - left_cut - right_cut
-    return left_cut, middle_piece, right_cut
-
 def get_bcs_from_align(align_obj, min_mapq = None, outbed = False):
 
     bc_list = {}
@@ -134,15 +110,6 @@ def get_bcs_from_align(align_obj, min_mapq = None, outbed = False):
                 bc_list[bc][0] = [read.reference_start]
                 bc_list[bc][1] = [read.reference_end - read.reference_start]
 
-# old code, to be delete
-#            read_left, read_m, read_right = cigar_to_clip(read.cigar)
-#            if bc_list.get(bc,None):
-#                bc_list[bc][0].append(read.pos - read_left)
-#                bc_list[bc][1].append(read_m)
-#            else:
-#                bc_list[bc] = [[],[]]
-#                bc_list[bc][0] = [read.pos - read_left]
-#                bc_list[bc][1] = [read_m]
         else:
             if bc_list.get(bc,None):
                 bc_list[bc].append(read.qname)
@@ -214,12 +181,6 @@ def get_bcs_share(align_obj1, align_obj2, bed=False):
     shared_bcs = set(bcs1.keys()) & set(bcs2.keys())
     bcs12 = {k:bcs1.pop(k, None) for k in list(shared_bcs) }
     bcs21 = {k:bcs2.pop(k, None) for k in list(shared_bcs) }
-    # add read names from align_obj2
-    # for k in list(shared_bcs):
-    #     bcs12[k] = bcs12[k] + bcs2.pop(k, None)
-    # keep only 1 of a pair
-    # for k in list(shared_bcs):
-    #     bcs12[k] = list( set(bcs12[k]) )
     return bcs1, bcs12, bcs21, bcs2
 
 def align_to_barbed(align_obj, chrom):
