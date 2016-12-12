@@ -13,7 +13,8 @@ runtime:
 5 hours
 
 ##step 2: bwa-aln
-run_bwa_aln_gemcode.py -b /path/to/ubam/*.bam -o b37.bam -O `pwd` --tmp /scratch_space/ -j b37.sjm
+run_bwa_aln_gemcode.py -b /path/to/ubam/*.bam -o b37.bam -O `pwd` --tmp /scratch_space/ -j b37.sjm    
+
 sjm b37.sjm
 
 Required scripts:
